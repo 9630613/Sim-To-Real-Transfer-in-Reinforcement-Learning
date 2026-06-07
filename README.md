@@ -1,5 +1,4 @@
-# Sim-to-Real Transfer in Robot Learning
-### A Reinforcement Learning Approach using MuJoCo Hopper
+# Sim-to-Real Transfer in Reinforcement Learning
 
 This project explores reinforcement learning (RL) for robotic control, with a focus on the **sim-to-real transfer** challenge. Policies are trained in the MuJoCo Hopper environment using the **Soft Actor-Critic (SAC)** algorithm, and generalization is evaluated using **Uniform Domain Randomization (UDR)** and **Adaptive Domain Randomization (ADR)**.
 
@@ -45,23 +44,6 @@ The entire body balances on a single foot. The agent must learn to apply coordin
 | Leg | 2.714 kg | Lower leg, drives propulsion |
 | Foot | 5.089 kg | Ground contact, balance and landing |
 
-### State Space (11-dimensional)
-
-The observation vector gives the agent a full picture of its current posture and motion:
-
-| # | Observation | Description |
-|---|-------------|-------------|
-| 1 | `rootz` | Height of the torso above ground |
-| 2 | `rooty` | Angle of the torso (forward tilt) |
-| 3 | `thigh_joint` | Thigh joint angle |
-| 4 | `leg_joint` | Knee joint angle |
-| 5 | `foot_joint` | Ankle joint angle |
-| 6 | `rootx_vel` | Horizontal (forward) velocity |
-| 7 | `rootz_vel` | Vertical velocity |
-| 8 | `rooty_vel` | Torso angular velocity |
-| 9 | `thigh_vel` | Thigh angular velocity |
-| 10 | `leg_vel` | Knee angular velocity |
-| 11 | `foot_vel` | Ankle angular velocity |
 
 ### Action Space
 
@@ -93,8 +75,6 @@ An episode ends under any of the following conditions:
 
 - **Fall detected**: torso height drops below threshold, or torso angle exceeds safe range
 - **Time limit**: 1000 timesteps reached
-- When `terminate_when_unhealthy=True` (used in this project), the episode ends immediately upon instability rather than continuing until the time limit
-
 
 ## Domains
 
@@ -213,14 +193,14 @@ Models were trained in all four domains and evaluated on both source and target 
 <p align="center">
   <img src="https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/main/Simulation_results/Target_on_target.gif?raw=true" alt="Source on Target simulation"/>
   <br/>
-  <em>Source on Target simulation</em>
+  <em>Target on Target simulation</em>
 </p>
 
 
 <p align="center">
   <img src="https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/main/Simulation_results/UDR_on_target.gif?raw=true" alt="Source on Target simulation"/>
   <br/>
-  <em>Source on Target simulation</em>
+  <em>URR on Target simulation</em>
 </p>
 
 ## Project Structure
@@ -231,13 +211,16 @@ Models were trained in all four domains and evaluated on both source and target 
 ├── train.py                # Training script
 ├── test.py                 # Evaluation script
 ├── policy.py               # Policy definitions (SAC)
-├── models/                 # Trained model checkpoints (4 models)
-│   ├── source_model
-│   ├── target_model
-│   ├── udr_model
-│   └── adr_model
-├── colab_policy.py         # Colab-compatible training notebook
-└── report.pdf              # Full project report
+├── Models/                 # Trained model checkpoints (4 models)
+│   ├── hopper_customhopper-source-v0.zip
+│   ├── hopper_customhopper-target-v0.zip
+│   ├── hopper_customhopper-adr-v0.zip
+│   └── hopper_customhopper-udr-v0.zip
+└── Simulation_results/     # Samples of test results
+    ├── Source_on_target.gif
+    ├── Target_on_target.gif
+    └── UDR_on_target.gif
+
 ```
 
 
@@ -273,5 +256,3 @@ python test.py --model models/udr_model --test-domain target
 2. J. Tobin et al., "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World," *arXiv:1703.06907*, 2017.
 3. X. B. Peng et al., "Sim-to-real transfer of robotic control with dynamics randomization," *IEEE ICRA*, 2018.
 
-
-*Project by Zahra Sadeghi Jalalabadi — Politecnico di Torino*
