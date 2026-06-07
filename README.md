@@ -3,7 +3,6 @@
 
 This project explores reinforcement learning (RL) for robotic control, with a focus on the **sim-to-real transfer** challenge. Policies are trained in the MuJoCo Hopper environment using the **Soft Actor-Critic (SAC)** algorithm, and generalization is evaluated using **Uniform Domain Randomization (UDR)** and **Adaptive Domain Randomization (ADR)**.
 
----
 
 ## Table of Contents
 
@@ -17,15 +16,12 @@ This project explores reinforcement learning (RL) for robotic control, with a fo
 - [Installation & Usage](#installation--usage)
 - [References](#references)
 
----
 
 ## Overview
 
 Transferring RL policies from simulation to the real world is one of the core challenges in robotics. Simulators allow fast, safe, and cheap data collection, but policies trained in simulation often fail when deployed on real hardware due to the **reality gap** — differences in physics, dynamics, and sensor noise.
 
 This project investigates domain randomization as a strategy to bridge this gap, using the **MuJoCo Hopper** as the test platform.
-
----
 
 ## Environment
 
@@ -99,7 +95,6 @@ An episode ends under any of the following conditions:
 - **Time limit**: 1000 timesteps reached
 - When `terminate_when_unhealthy=True` (used in this project), the episode ends immediately upon instability rather than continuing until the time limit
 
----
 
 ## Domains
 
@@ -145,7 +140,6 @@ The **ADR domain** extends UDR by automatically adjusting how wide the randomiza
 | Randomization | None | None | Uniform, fixed range | Curriculum-based |
 | Purpose | Train baseline | Evaluate transfer | Improve robustness | Targeted robustness |
 
----
 
 ## Algorithms
 
@@ -174,8 +168,6 @@ Two algorithms were evaluated — **Proximal Policy Optimization (PPO)** and **S
 | Gradient steps | 1 |
 | Tau (soft update) | 0.01 |
 
----
-
 ## Domain Randomization
 
 ### Uniform Domain Randomization (UDR)
@@ -194,7 +186,6 @@ ADR automatically adjusts randomization ranges based on agent performance:
 - **Minimum range** of ±10% is maintained to prevent over-narrowing
 - Performance is tracked over a 100-episode sliding window
 
----
 
 ## Results
 
@@ -212,9 +203,25 @@ Models were trained in all four domains and evaluated on both source and target 
 - Both UDR and ADR significantly outperform direct source training on the target domain.
 - UDR and ADR achieve higher rewards even on the source domain, suggesting that randomization also improves overall robustness.
 - ADR shows higher variance on the target domain, suggesting it is more sensitive to its hyperparameters.
+<p align="center">
+  <img src="https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/main/Simulation_results/Source_on_target.gif?raw=true" alt="Source on Target simulation"/>
+  <br/>
+  <em>Source on Target simulation</em>
+</p>
 
-https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/main/Simulation_results/Source_on_target.mp4
----
+
+<p align="center">
+  <img src="https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/main/Simulation_results/Target_on_target.gif?raw=true" alt="Source on Target simulation"/>
+  <br/>
+  <em>Source on Target simulation</em>
+</p>
+
+
+<p align="center">
+  <img src="https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/main/Simulation_results/UDR_on_target.gif?raw=true" alt="Source on Target simulation"/>
+  <br/>
+  <em>Source on Target simulation</em>
+</p>
 
 ## Project Structure
 
@@ -233,7 +240,6 @@ https://github.com/9630613/Sim-To-Real-Transfer-in-Reinforcement-Learning/blob/m
 └── report.pdf              # Full project report
 ```
 
----
 
 ## Installation & Usage
 
@@ -260,7 +266,6 @@ python train.py --domain adr       # Train with Adaptive Domain Randomization
 python test.py --model models/udr_model --test-domain target
 ```
 
----
 
 ## References
 
@@ -268,6 +273,5 @@ python test.py --model models/udr_model --test-domain target
 2. J. Tobin et al., "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World," *arXiv:1703.06907*, 2017.
 3. X. B. Peng et al., "Sim-to-real transfer of robotic control with dynamics randomization," *IEEE ICRA*, 2018.
 
----
 
 *Project by Zahra Sadeghi Jalalabadi — Politecnico di Torino*
